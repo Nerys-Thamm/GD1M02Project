@@ -61,6 +61,42 @@ void CMatrixCalc::Transpose(float(&Matrix)[4][4])
 
 void CMatrixCalc::Inverse(float(&Matrix)[4][4])
 {
+	//row 1
+	float adjugate00[3][3];
+	float adjugate10[3][3];
+	float adjugate20[3][3];
+	float adjugate30[3][3];
+	//row 2
+	float adjugate01[3][3];
+	float adjugate11[3][3];
+	float adjugate21[3][3];
+	float adjugate31[3][3];
+	//row 3
+	float adjugate02[3][3];
+	float adjugate12[3][3];
+	float adjugate22[3][3];
+	float adjugate32[3][3];
+	//row 4
+	float adjugate03[3][3];
+	float adjugate13[3][3];
+	float adjugate23[3][3];
+	float adjugate33[3][3];
+
+	//asigining the adjugates
+	adjugate00[0][0] = 
+
+	
+
+
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			
+
+
+		}
+	}
 }
 
 void CMatrixCalc::Multiply(float(&Matrix)[4][4], float scalar)
