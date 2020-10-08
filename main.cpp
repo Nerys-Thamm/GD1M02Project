@@ -20,6 +20,7 @@
 
 #include "utils.h"
 #include "resource.h"
+#include "CMatrixCalc.h"
 
 #define WINDOW_CLASS_NAME L"WINCLASS1"
 
@@ -328,13 +329,8 @@ BOOL CALLBACK MatrixDlgProc(HWND _hwnd,
 		}
 		case IDOK6: // A * scalar
 		{
-			for (int y = 0; y < 4; y++)
-			{
-				for (int x = 0; x < 4; x++)
-				{
-					matrixA[y][x] = matrixA[y][x]* AScale;
-				}
-			}
+			
+			CMatrixCalc::Multiply(matrixA, AScale);
 			//row 1
 			WriteToEditBox(_hwnd, IDC_EDIT_A11, matrixA[0][0]);
 			WriteToEditBox(_hwnd, IDC_EDIT_A12, matrixA[0][1]);
@@ -359,13 +355,8 @@ BOOL CALLBACK MatrixDlgProc(HWND _hwnd,
 		}
 		case IDOK10: // B * scalar
 		{
-			for (int y = 0; y < 4; y++)
-			{
-				for (int x = 0; x < 4; x++)
-				{
-					matrixB[y][x] = matrixB[y][x] * BScale;
-				}
-			}
+			
+			CMatrixCalc::Multiply(matrixB, BScale);
 			//row 1
 			WriteToEditBox(_hwnd, IDC_EDIT_B11, matrixB[0][0]);
 			WriteToEditBox(_hwnd, IDC_EDIT_B12, matrixB[0][1]);
@@ -391,27 +382,9 @@ BOOL CALLBACK MatrixDlgProc(HWND _hwnd,
 
 		case IDOK9: // A Transpose
 		{
-			int TempMatrix[4][4];
-			for (int i = 0; i < 4; i++)
-			{
-				for (int j = 0; j < 4; j++)
-				{
-					TempMatrix[i][j] = matrixA[i][j];
-				}
-			}
-			matrixA[0][1] = TempMatrix[1][0];
-			matrixA[0][2] = TempMatrix[2][0];
-			matrixA[0][3] = TempMatrix[3][0];
-			matrixA[1][2] = TempMatrix[2][1];
-			matrixA[1][3] = TempMatrix[3][1];
-			matrixA[2][3] = TempMatrix[3][2];
-
-			matrixA[1][0] = TempMatrix[0][1];
-			matrixA[2][0] = TempMatrix[0][2];
-			matrixA[3][0] = TempMatrix[0][3];
-			matrixA[2][1] = TempMatrix[1][2];
-			matrixA[3][1] = TempMatrix[1][3];
-			matrixA[3][2] = TempMatrix[2][3];
+			
+			CMatrixCalc::Transpose(matrixA);
+			
 
 			//row 1
 			WriteToEditBox(_hwnd, IDC_EDIT_A11, matrixA[0][0]);
@@ -437,27 +410,7 @@ BOOL CALLBACK MatrixDlgProc(HWND _hwnd,
 		}
 		case IDOK11: // b Transpose
 		{
-			int TempMatrix[4][4];
-			for (int i = 0; i < 4; i++)
-			{
-				for (int j = 0; j < 4; j++)
-				{
-					TempMatrix[i][j] = matrixB[i][j];
-				}
-			}
-			matrixB[0][1] = TempMatrix[1][0];
-			matrixB[0][2] = TempMatrix[2][0];
-			matrixB[0][3] = TempMatrix[3][0];
-			matrixB[1][2] = TempMatrix[2][1];
-			matrixB[1][3] = TempMatrix[3][1];
-			matrixB[2][3] = TempMatrix[3][2];
-
-			matrixB[1][0] = TempMatrix[0][1];
-			matrixB[2][0] = TempMatrix[0][2];
-			matrixB[3][0] = TempMatrix[0][3];
-			matrixB[2][1] = TempMatrix[1][2];
-			matrixB[3][1] = TempMatrix[1][3];
-			matrixB[3][2] = TempMatrix[2][3];
+			CMatrixCalc::Transpose(matrixB);
 
 			//row 1
 			WriteToEditBox(_hwnd, IDC_EDIT_B11, matrixB[0][0]);
@@ -483,17 +436,7 @@ BOOL CALLBACK MatrixDlgProc(HWND _hwnd,
 		}
 		case IDOK4: // A = I
 		{
-			for (int i = 0; i < 4; i++)
-			{
-				for (int j = 0; j < 4; j++)
-				{
-					matrixA[i][j] = 0;
-				}
-			}
-			matrixA[0][0] = 1;
-			matrixA[1][1] = 1;
-			matrixA[2][2] = 1;
-			matrixA[3][3] = 1;
+			CMatrixCalc::SetIdentity(matrixA);
 
 			//row 1
 			WriteToEditBox(_hwnd, IDC_EDIT_A11, matrixA[0][0]);
@@ -519,17 +462,7 @@ BOOL CALLBACK MatrixDlgProc(HWND _hwnd,
 		}
 		case IDOK8: // B = I
 		{
-			for (int i = 0; i < 4; i++)
-			{
-				for (int j = 0; j < 4; j++)
-				{
-					matrixB[i][j] = 0;
-				}
-			}
-			matrixB[0][0] = 1;
-			matrixB[1][1] = 1;
-			matrixB[2][2] = 1;
-			matrixB[3][3] = 1;
+			CMatrixCalc::SetIdentity(matrixB);
 
 			//row 1
 			WriteToEditBox(_hwnd, IDC_EDIT_B11, matrixB[0][0]);
@@ -555,13 +488,8 @@ BOOL CALLBACK MatrixDlgProc(HWND _hwnd,
 		}
 		case IDOK: // A + B
 		{ 
-			for (int i = 0; i < 4; i++)
-			{
-				for (int j = 0; j < 4; j++)
-				{
-					resultantMat[i][j] = matrixA[i][j] + matrixB[i][j];
-				}
-			}
+			
+			CMatrixCalc::Add(matrixA, matrixB, resultantMat);
 
 			//row 1
 			WriteToEditBox(_hwnd, IDC_EDIT_R11, resultantMat[0][0]);
@@ -587,13 +515,7 @@ BOOL CALLBACK MatrixDlgProc(HWND _hwnd,
 		}
 		case IDCANCEL: // A - B
 		{
-			for (int i = 0; i < 4; i++)
-			{
-				for (int j = 0; j < 4; j++)
-				{
-					resultantMat[i][j] = matrixA[i][j] - matrixB[i][j];
-				}
-			}
+			CMatrixCalc::Subtract(matrixA, matrixB, resultantMat);
 
 			//row 1
 			WriteToEditBox(_hwnd, IDC_EDIT_R11, resultantMat[0][0]);
@@ -619,19 +541,7 @@ BOOL CALLBACK MatrixDlgProc(HWND _hwnd,
 		}
 		case IDOK2: // A * B
 		{
-			float result;
-			for (int y = 0; y < 4; y++)
-			{
-				for (int x = 0; x < 4; x++)
-				{
-					result = 0;
-					for (int i = 0; i < 4; i++)
-					{
-						result = result + (matrixA[y][i] * matrixB[i][x]);
-					}
-					resultantMat[y][x] = result;
-				}
-			}
+			CMatrixCalc::Multiply(matrixA, matrixB, resultantMat);
 			//row 1
 			WriteToEditBox(_hwnd, IDC_EDIT_R11, resultantMat[0][0]);
 			WriteToEditBox(_hwnd, IDC_EDIT_R12, resultantMat[0][1]);
@@ -656,19 +566,7 @@ BOOL CALLBACK MatrixDlgProc(HWND _hwnd,
 		}
 		case IDOK5: // B * A
 		{
-			float result;
-			for (int y = 0; y < 4; y++)
-			{
-				for (int x = 0; x < 4; x++)
-				{
-					result = 0;
-					for (int i = 0; i < 4; i++)
-					{
-						result = result + (matrixB[y][i] * matrixA[i][x]);
-					}
-					resultantMat[y][x] = result;
-				}
-			}
+			CMatrixCalc::Multiply(matrixB, matrixA, resultantMat);
 			//row 1
 			WriteToEditBox(_hwnd, IDC_EDIT_R11, resultantMat[0][0]);
 			WriteToEditBox(_hwnd, IDC_EDIT_R12, resultantMat[0][1]);
