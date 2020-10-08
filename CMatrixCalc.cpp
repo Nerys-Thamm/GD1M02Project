@@ -73,7 +73,7 @@ void CMatrixCalc::Inverse(float(&Matrix)[4][4])
 			//Populating temp matrix
 
 			xIndex = 0;
-
+			
 			for (int x = 0; x < 4; x++)
 			{
 				yIndex = 0;
@@ -84,7 +84,7 @@ void CMatrixCalc::Inverse(float(&Matrix)[4][4])
 					{
 						if (y != j)
 						{
-							fTempMat[xIndex][yIndex] = Matrix[x][y];
+							fTempMat[2-xIndex][yIndex] = Matrix[x][y];
 							yIndex++;
 						}
 					}
@@ -92,7 +92,7 @@ void CMatrixCalc::Inverse(float(&Matrix)[4][4])
 				}
 			}
 
-			fConjugate[i][j] = GetDeterminant3X(fTempMat);
+			fConjugate[i][j] = GetDeterminant3X(fTempMat) * (((i%2)+j)%2 == 0 ? -1 : 1);
 		}
 
 	}
