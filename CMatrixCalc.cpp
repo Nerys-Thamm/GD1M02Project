@@ -129,8 +129,22 @@ void CMatrixCalc::Multiply(const float(&MatrixA)[4][4], const float(&MatrixB)[4]
 
 void CMatrixCalc::Add(const float(&MatrixA)[4][4], const float(&MatrixB)[4][4], float(&Result)[4][4])
 {
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			Result[i][j] = MatrixA[i][j] + MatrixB[i][j];
+		}
+	}
 }
 
 void CMatrixCalc::Subtract(const float(&MatrixA)[4][4], const float(&MatrixB)[4][4], float(&Result)[4][4])
 {
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			Result[i][j] = MatrixA[i][j] - MatrixB[i][j];
+		}
+	}
 }
