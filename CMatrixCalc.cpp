@@ -18,6 +18,7 @@ float CMatrixCalc::GetDeterminant(const float(&Matrix)[4][4])
 	int iIndex = 0;
 	for (int i = 0; i < 4; i++)
 	{
+		iIndex = 0;
 		for (int j = 0; j < 4; j++)
 		{
 			if (j == i) { continue; }
@@ -30,14 +31,14 @@ float CMatrixCalc::GetDeterminant(const float(&Matrix)[4][4])
 				iIndex++;
 			}
 		}
-		fDeterminant[i] = GetDeterminant3X(fTempMat);
+		fDeterminant[i] = GetDeterminant3X(fTempMat) * Matrix[i][0];
 	}
-	return fDeterminant[0] - fDeterminant[1] + fDeterminant[2] - fDeterminant[3];
+	return (fDeterminant[0] - fDeterminant[1] + fDeterminant[2] - fDeterminant[3]);
 }
 
 float CMatrixCalc::GetDeterminant3X(float _mat[3][3])
 {
-    return ((_mat[1][1] * _mat[2][2]) - (_mat[2][1] * _mat[1][2])) - ((_mat[0][1] * _mat[2][2]) - (_mat[2][1] * _mat[0][2])) + ((_mat[0][1] * _mat[1][2]) - (_mat[1][1] * _mat[0][2]));
+	return (((_mat[1][1] * _mat[2][2]) - (_mat[2][1] * _mat[1][2])) * _mat[0][0]) - (((_mat[0][1] * _mat[2][2]) - (_mat[2][1] * _mat[0][2])) * _mat[1][0]) + (((_mat[0][1] * _mat[1][2]) - (_mat[1][1] * _mat[0][2])) * _mat[2][0]);
 }
 
 void CMatrixCalc::Transpose(float(&Matrix)[4][4])
@@ -61,40 +62,49 @@ void CMatrixCalc::Transpose(float(&Matrix)[4][4])
 
 void CMatrixCalc::Inverse(float(&Matrix)[4][4])
 {
-	//row 1
-	float adjugate00[3][3];
-	float adjugate10[3][3];
-	float adjugate20[3][3];
-	float adjugate30[3][3];
-	//row 2
-	float adjugate01[3][3];
-	float adjugate11[3][3];
-	float adjugate21[3][3];
-	float adjugate31[3][3];
-	//row 3
-	float adjugate02[3][3];
-	float adjugate12[3][3];
-	float adjugate22[3][3];
-	float adjugate32[3][3];
-	//row 4
-	float adjugate03[3][3];
-	float adjugate13[3][3];
-	float adjugate23[3][3];
-	float adjugate33[3][3];
-
-	//asigining the adjugates
-	adjugate00[0][0] = 
-
-	
-
-
+	float fTempMat[3][3];
+	float fConjugate[4][4];
+	int xIndex = 0, yIndex = 0;
+	//Iterating through array
 	for (int i = 0; i < 4; i++)
 	{
 		for (int j = 0; j < 4; j++)
 		{
-			
+			//Populating temp matrix
 
+			xIndex = 0;
 
+			for (int x = 0; x < 4; x++)
+			{
+				yIndex = 0;
+
+				if (x != i)
+				{
+					for (int y = 0; y < 4; y++)
+					{
+						if (y != j)
+						{
+							fTempMat[xIndex][yIndex] = Matrix[x][y];
+							yIndex++;
+						}
+					}
+					xIndex++;
+				}
+			}
+
+			fConjugate[i][j] = GetDeterminant3X(fTempMat);
+		}
+
+	}
+
+	Transpose(fConjugate);
+	Multiply(fConjugate, (1.0f / GetDeterminant(Matrix)));
+
+	for (size_t i = 0; i < 4; i++)
+	{
+		for (size_t j = 0; j < 4; j++)
+		{
+			Matrix[i][j] = fConjugate[i][j];
 		}
 	}
 }
