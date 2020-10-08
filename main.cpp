@@ -29,6 +29,7 @@ HWND g_hDlgMatrix, g_hDlgTransformation, g_hDlgGaussian, g_hDlgQuaternion, g_hDl
 
 float matrixA[4][4], matrixB[4][4], resultantMat[4][4], TempMatrix[4][4];
 float AScale, BScale;
+float tempValue;
 
 void GameLoop()
 {
@@ -327,9 +328,71 @@ BOOL CALLBACK MatrixDlgProc(HWND _hwnd,
 			BScale = ReadFromEditBox(_hwnd, IDC_EDIT_BScaled);
 			break;
 		}
+
+		case IDOK3: // Det A
+		{
+			tempValue = CMatrixCalc::GetDeterminant(matrixA);
+			WriteToEditBox(_hwnd, IDC_EDIT_DetA, tempValue);
+			break;
+		}
+		case IDOK7: // Det B
+		{
+			tempValue = CMatrixCalc::GetDeterminant(matrixB);
+			WriteToEditBox(_hwnd, IDC_EDIT_DetB, tempValue);
+			break;
+		}
+		case IDCANCEL2: //Inverse A
+		{
+			CMatrixCalc::Inverse(matrixA);
+			//row 1
+			WriteToEditBox(_hwnd, IDC_EDIT_A11, matrixA[0][0]);
+			WriteToEditBox(_hwnd, IDC_EDIT_A12, matrixA[0][1]);
+			WriteToEditBox(_hwnd, IDC_EDIT_A13, matrixA[0][2]);
+			WriteToEditBox(_hwnd, IDC_EDIT_A14, matrixA[0][3]);
+			//row 2
+			WriteToEditBox(_hwnd, IDC_EDIT_A21, matrixA[1][0]);
+			WriteToEditBox(_hwnd, IDC_EDIT_A22, matrixA[1][1]);
+			WriteToEditBox(_hwnd, IDC_EDIT_A23, matrixA[1][2]);
+			WriteToEditBox(_hwnd, IDC_EDIT_A24, matrixA[1][3]);
+			//row 3
+			WriteToEditBox(_hwnd, IDC_EDIT_A31, matrixA[2][0]);
+			WriteToEditBox(_hwnd, IDC_EDIT_A32, matrixA[2][1]);
+			WriteToEditBox(_hwnd, IDC_EDIT_A33, matrixA[2][2]);
+			WriteToEditBox(_hwnd, IDC_EDIT_A34, matrixA[2][3]);
+			//row 4
+			WriteToEditBox(_hwnd, IDC_EDIT_A41, matrixA[3][0]);
+			WriteToEditBox(_hwnd, IDC_EDIT_A42, matrixA[3][1]);
+			WriteToEditBox(_hwnd, IDC_EDIT_A43, matrixA[3][2]);
+			WriteToEditBox(_hwnd, IDC_EDIT_A44, matrixA[3][3]);
+			break;
+		}
+		case IDCANCEL3: //Inverse B
+		{
+			CMatrixCalc::Inverse(matrixB);
+			//row 1
+			WriteToEditBox(_hwnd, IDC_EDIT_B11, matrixB[0][0]);
+			WriteToEditBox(_hwnd, IDC_EDIT_B12, matrixB[0][1]);
+			WriteToEditBox(_hwnd, IDC_EDIT_B13, matrixB[0][2]);
+			WriteToEditBox(_hwnd, IDC_EDIT_B14, matrixB[0][3]);
+			//row 2
+			WriteToEditBox(_hwnd, IDC_EDIT_B21, matrixB[1][0]);
+			WriteToEditBox(_hwnd, IDC_EDIT_B22, matrixB[1][1]);
+			WriteToEditBox(_hwnd, IDC_EDIT_B23, matrixB[1][2]);
+			WriteToEditBox(_hwnd, IDC_EDIT_B24, matrixB[1][3]);
+			//row 3
+			WriteToEditBox(_hwnd, IDC_EDIT_B31, matrixB[2][0]);
+			WriteToEditBox(_hwnd, IDC_EDIT_B32, matrixB[2][1]);
+			WriteToEditBox(_hwnd, IDC_EDIT_B33, matrixB[2][2]);
+			WriteToEditBox(_hwnd, IDC_EDIT_B34, matrixB[2][3]);
+			//row 4
+			WriteToEditBox(_hwnd, IDC_EDIT_B41, matrixB[3][0]);
+			WriteToEditBox(_hwnd, IDC_EDIT_B42, matrixB[3][1]);
+			WriteToEditBox(_hwnd, IDC_EDIT_B43, matrixB[3][2]);
+			WriteToEditBox(_hwnd, IDC_EDIT_B44, matrixB[3][3]);
+			break;
+		}
 		case IDOK6: // A * scalar
 		{
-			
 			CMatrixCalc::Multiply(matrixA, AScale);
 			//row 1
 			WriteToEditBox(_hwnd, IDC_EDIT_A11, matrixA[0][0]);
