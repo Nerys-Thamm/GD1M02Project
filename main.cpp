@@ -27,9 +27,25 @@
 HMENU g_hMenu;
 HWND g_hDlgMatrix, g_hDlgTransformation, g_hDlgGaussian, g_hDlgQuaternion, g_hDlgSLERP;
 
+//matrix calculator
 float matrixA[4][4], matrixB[4][4], resultantMat[4][4], TempMatrix[4][4];
 float AScale, BScale;
 float tempValue;
+
+//quarternion calculator
+struct Quartenion
+{
+	double w;
+	double i;
+	double j;
+	double k;
+};
+
+Quartenion QuarternionA;
+Quartenion QuarternionB;
+Quartenion QuarternionR;
+
+double ConstantT = 0;
 
 void GameLoop()
 {
@@ -752,6 +768,101 @@ BOOL CALLBACK QuaternionDlgProc(HWND _hwnd,
 	{
 		switch (LOWORD(_wparam))
 		{
+			//Quaternion A
+		case IDC_EDIT1: // edit A i component
+			QuarternionA.i = ReadFromEditBox(_hwnd, IDC_EDIT1);
+			break;
+
+		case IDC_EDIT2: // edit A j component
+			QuarternionA.j = ReadFromEditBox(_hwnd, IDC_EDIT2);
+			break;
+
+		case IDC_EDIT3: // edit A k component
+			QuarternionA.k = ReadFromEditBox(_hwnd, IDC_EDIT3);
+			break;
+
+		case IDC_EDIT4: // edit A w component
+			QuarternionA.w = ReadFromEditBox(_hwnd, IDC_EDIT4);
+			break;
+
+			//QuaternionB= B
+		case IDC_EDIT5: // edit B i component
+			QuarternionB.i = ReadFromEditBox(_hwnd, IDC_EDIT5);
+			break;
+
+		case IDC_EDIT6: // edit B j component
+			QuarternionB.j = ReadFromEditBox(_hwnd, IDC_EDIT6);
+			break;
+
+		case IDC_EDIT7: // edit B k component
+			QuarternionB.k = ReadFromEditBox(_hwnd, IDC_EDIT7);
+			break;
+
+		case IDC_EDIT8: // edit B w component
+			QuarternionB.w = ReadFromEditBox(_hwnd, IDC_EDIT8);
+			break;
+
+			//Constant T
+		case IDC_EDIT9: // edit B w component
+			ConstantT = ReadFromEditBox(_hwnd, IDC_EDIT9);
+			break;
+		
+			//Calculation inputs.
+		case IDC_BUTTON1: // A+B
+
+			break;
+
+		case IDC_BUTTON5: // A-B
+
+			break;
+
+		case IDC_BUTTON6: // B-A
+
+			break;
+
+		case IDC_BUTTON2: // AB
+
+			break;
+
+		case IDC_BUTTON7: // BA
+
+			break;
+
+		case IDC_BUTTON8: // A dot B
+
+			break;
+
+		case IDC_BUTTON3: // A*
+
+			break;
+
+		case IDC_BUTTON9: // B*
+
+			break;
+
+		case IDC_BUTTON10: // |A|
+
+			break;
+
+		case IDC_BUTTON11: // |B|
+
+			break;
+
+		case IDC_BUTTON12: // A inv
+
+			break;
+
+		case IDC_BUTTON13: // B inv
+
+			break;
+
+		case IDC_BUTTON14: // TA
+
+			break;
+
+		case IDC_BUTTON15: // TB
+
+			break;
 
 		default:
 			break;
