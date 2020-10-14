@@ -36,9 +36,9 @@ float tempValue;
 //quarternion calculator
 
 
-CQuaternionCalc::Quaternion QuarternionA;
-CQuaternionCalc::Quaternion QuarternionB;
-CQuaternionCalc::Quaternion QuarternionR;
+CQuaternionCalc::Quaternion QuarternionA(0, 0, 0, 0);
+CQuaternionCalc::Quaternion QuarternionB(0, 0, 0, 0);
+CQuaternionCalc::Quaternion QuarternionR(0, 0, 0, 0);
 
 double ConstantT = 0;
 
@@ -805,58 +805,127 @@ BOOL CALLBACK QuaternionDlgProc(HWND _hwnd,
 			//Calculation inputs.
 		case IDC_BUTTON1: // A+B
 			QuarternionR = QuarternionA + QuarternionB;
+
+			//display answer
+			WriteToEditBox(_hwnd, IDC_EDIT10, QuarternionR.i);
+			WriteToEditBox(_hwnd, IDC_EDIT11, QuarternionR.j);
+			WriteToEditBox(_hwnd, IDC_EDIT12, QuarternionR.k);
+			WriteToEditBox(_hwnd, IDC_EDIT13, QuarternionR.w);
+
 			break;
 
 		case IDC_BUTTON5: // A-B
 			QuarternionR = QuarternionA - QuarternionB;
+			//display answer
+			WriteToEditBox(_hwnd, IDC_EDIT10, QuarternionR.i);
+			WriteToEditBox(_hwnd, IDC_EDIT11, QuarternionR.j);
+			WriteToEditBox(_hwnd, IDC_EDIT12, QuarternionR.k);
+			WriteToEditBox(_hwnd, IDC_EDIT13, QuarternionR.w);
+
 			break;
 
 		case IDC_BUTTON6: // B-A
 			QuarternionR = QuarternionB - QuarternionA;
+			//display answer
+			WriteToEditBox(_hwnd, IDC_EDIT10, QuarternionR.i);
+			WriteToEditBox(_hwnd, IDC_EDIT11, QuarternionR.j);
+			WriteToEditBox(_hwnd, IDC_EDIT12, QuarternionR.k);
+			WriteToEditBox(_hwnd, IDC_EDIT13, QuarternionR.w);
 			break;
 
 		case IDC_BUTTON2: // AB
 			QuarternionR = QuarternionA * QuarternionB;
+			//display answer
+			WriteToEditBox(_hwnd, IDC_EDIT10, QuarternionR.i);
+			WriteToEditBox(_hwnd, IDC_EDIT11, QuarternionR.j);
+			WriteToEditBox(_hwnd, IDC_EDIT12, QuarternionR.k);
+			WriteToEditBox(_hwnd, IDC_EDIT13, QuarternionR.w);
 			break;
 
 		case IDC_BUTTON7: // BA
 			QuarternionR = QuarternionB * QuarternionA;
+			//display answer
+			WriteToEditBox(_hwnd, IDC_EDIT10, QuarternionR.i);
+			WriteToEditBox(_hwnd, IDC_EDIT11, QuarternionR.j);
+			WriteToEditBox(_hwnd, IDC_EDIT12, QuarternionR.k);
+			WriteToEditBox(_hwnd, IDC_EDIT13, QuarternionR.w);
 			break;
 
 		case IDC_BUTTON8: // A dot B
+						//display answer
+			WriteToEditBox(_hwnd, IDC_EDIT10, QuarternionR.i);
+			WriteToEditBox(_hwnd, IDC_EDIT11, QuarternionR.j);
+			WriteToEditBox(_hwnd, IDC_EDIT12, QuarternionR.k);
+			WriteToEditBox(_hwnd, IDC_EDIT13, QuarternionR.w);
 
 			break;
 
 		case IDC_BUTTON3: // A*
 			QuarternionR = QuarternionA.Conjugate();
+			//display answer
+			WriteToEditBox(_hwnd, IDC_EDIT10, QuarternionR.i);
+			WriteToEditBox(_hwnd, IDC_EDIT11, QuarternionR.j);
+			WriteToEditBox(_hwnd, IDC_EDIT12, QuarternionR.k);
+			WriteToEditBox(_hwnd, IDC_EDIT13, QuarternionR.w);
 			break;
 
 		case IDC_BUTTON9: // B*
 			QuarternionR = QuarternionB.Conjugate();
+			//display answer
+			WriteToEditBox(_hwnd, IDC_EDIT10, QuarternionR.i);
+			WriteToEditBox(_hwnd, IDC_EDIT11, QuarternionR.j);
+			WriteToEditBox(_hwnd, IDC_EDIT12, QuarternionR.k);
+			WriteToEditBox(_hwnd, IDC_EDIT13, QuarternionR.w);
 			break;
 
 		case IDC_BUTTON10: // |A|
-
+						//display answer
+			WriteToEditBox(_hwnd, IDC_EDIT10, QuarternionR.i);
+			WriteToEditBox(_hwnd, IDC_EDIT11, QuarternionR.j);
+			WriteToEditBox(_hwnd, IDC_EDIT12, QuarternionR.k);
+			WriteToEditBox(_hwnd, IDC_EDIT13, QuarternionR.w);
 			break;
 
 		case IDC_BUTTON11: // |B|
-
+						//display answer
+			WriteToEditBox(_hwnd, IDC_EDIT10, QuarternionR.i);
+			WriteToEditBox(_hwnd, IDC_EDIT11, QuarternionR.j);
+			WriteToEditBox(_hwnd, IDC_EDIT12, QuarternionR.k);
+			WriteToEditBox(_hwnd, IDC_EDIT13, QuarternionR.w);
 			break;
 
 		case IDC_BUTTON12: // A inv
-
+						//display answer
+			WriteToEditBox(_hwnd, IDC_EDIT10, QuarternionR.i);
+			WriteToEditBox(_hwnd, IDC_EDIT11, QuarternionR.j);
+			WriteToEditBox(_hwnd, IDC_EDIT12, QuarternionR.k);
+			WriteToEditBox(_hwnd, IDC_EDIT13, QuarternionR.w);
 			break;
 
 		case IDC_BUTTON13: // B inv
-
+						//display answer
+			WriteToEditBox(_hwnd, IDC_EDIT10, QuarternionR.i);
+			WriteToEditBox(_hwnd, IDC_EDIT11, QuarternionR.j);
+			WriteToEditBox(_hwnd, IDC_EDIT12, QuarternionR.k);
+			WriteToEditBox(_hwnd, IDC_EDIT13, QuarternionR.w);
 			break;
 
 		case IDC_BUTTON14: // TA
 			QuarternionR = QuarternionA * ConstantT;
+			//display answer
+			WriteToEditBox(_hwnd, IDC_EDIT10, QuarternionR.i);
+			WriteToEditBox(_hwnd, IDC_EDIT11, QuarternionR.j);
+			WriteToEditBox(_hwnd, IDC_EDIT12, QuarternionR.k);
+			WriteToEditBox(_hwnd, IDC_EDIT13, QuarternionR.w);
 			break;
 
 		case IDC_BUTTON15: // TB
 			QuarternionR = QuarternionB * ConstantT;
+			//display answer
+			WriteToEditBox(_hwnd, IDC_EDIT10, QuarternionR.i);
+			WriteToEditBox(_hwnd, IDC_EDIT11, QuarternionR.j);
+			WriteToEditBox(_hwnd, IDC_EDIT12, QuarternionR.k);
+			WriteToEditBox(_hwnd, IDC_EDIT13, QuarternionR.w);
 			break;
 
 		default:
