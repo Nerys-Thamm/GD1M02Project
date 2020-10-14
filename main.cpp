@@ -40,6 +40,8 @@ CQuaternionCalc::Quaternion QuarternionA(0, 0, 0, 0);
 CQuaternionCalc::Quaternion QuarternionB(0, 0, 0, 0);
 CQuaternionCalc::Quaternion QuarternionR(0, 0, 0, 0);
 
+double DotProductResult = 0;
+
 double ConstantT = 0;
 
 void GameLoop()
@@ -833,8 +835,13 @@ BOOL CALLBACK QuaternionDlgProc(HWND _hwnd,
 			WriteToEditBox(_hwnd, IDC_EDIT13, QuarternionR.w);
 			break;
 
-		case IDC_BUTTON2: // AB
-			QuarternionR = QuarternionA * QuarternionB;
+		case IDC_BUTTON2: // AB 
+			// sorry for implementing it like this but my brain be mushy rn, im sure you can move the logic to the calculator and do it in the fancy way taht you ususally do.
+			QuarternionR.i = ((QuarternionA.i * QuarternionB.w) + (QuarternionA.j * QuarternionB.k) - (QuarternionA.k * QuarternionB.j) + (QuarternionA.w * QuarternionB.i));
+			QuarternionR.j = ((-QuarternionA.i * QuarternionB.k) + (QuarternionA.j * QuarternionB.w) + (QuarternionA.k * QuarternionB.i) + (QuarternionA.w * QuarternionB.j));
+			QuarternionR.k = ((QuarternionA.i * QuarternionB.j) - (QuarternionA.j * QuarternionB.i) + (QuarternionA.k * QuarternionA.w) + (QuarternionA.w * QuarternionB.k));
+			QuarternionR.w = ((-QuarternionA.i * QuarternionB.i) - (QuarternionA.j * QuarternionB.j) - (QuarternionA.k * QuarternionB.k) + (QuarternionA.w * QuarternionB.w));
+
 			//display answer
 			WriteToEditBox(_hwnd, IDC_EDIT10, QuarternionR.i);
 			WriteToEditBox(_hwnd, IDC_EDIT11, QuarternionR.j);
@@ -843,7 +850,9 @@ BOOL CALLBACK QuaternionDlgProc(HWND _hwnd,
 			break;
 
 		case IDC_BUTTON7: // BA
-			QuarternionR = QuarternionB * QuarternionA;
+			
+			//i diddnt implement this because im sure the way you will implement it will cover it hehe :^).
+
 			//display answer
 			WriteToEditBox(_hwnd, IDC_EDIT10, QuarternionR.i);
 			WriteToEditBox(_hwnd, IDC_EDIT11, QuarternionR.j);
@@ -852,11 +861,14 @@ BOOL CALLBACK QuaternionDlgProc(HWND _hwnd,
 			break;
 
 		case IDC_BUTTON8: // A dot B
-						//display answer
-			WriteToEditBox(_hwnd, IDC_EDIT10, QuarternionR.i);
-			WriteToEditBox(_hwnd, IDC_EDIT11, QuarternionR.j);
-			WriteToEditBox(_hwnd, IDC_EDIT12, QuarternionR.k);
-			WriteToEditBox(_hwnd, IDC_EDIT13, QuarternionR.w);
+
+			DotProductResult = ((QuarternionA.i * QuarternionB.i) + (QuarternionA.j * QuarternionB.j) + (QuarternionA.k * QuarternionB.k) + (QuarternionA.w * QuarternionB.w));
+
+			//display answer
+			WriteToEditBox(_hwnd, IDC_EDIT10, 0);
+			WriteToEditBox(_hwnd, IDC_EDIT11, 0);
+			WriteToEditBox(_hwnd, IDC_EDIT12, 0);
+			WriteToEditBox(_hwnd, IDC_EDIT13, DotProductResult);
 
 			break;
 
