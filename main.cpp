@@ -21,6 +21,7 @@
 #include "utils.h"
 #include "resource.h"
 #include "CMatrixCalc.h"
+#include "CQuaternionCalc.h"
 
 #define WINDOW_CLASS_NAME L"WINCLASS1"
 
@@ -33,17 +34,11 @@ float AScale, BScale;
 float tempValue;
 
 //quarternion calculator
-struct Quartenion
-{
-	double w;
-	double i;
-	double j;
-	double k;
-};
 
-Quartenion QuarternionA;
-Quartenion QuarternionB;
-Quartenion QuarternionR;
+
+CQuaternionCalc::Quaternion QuarternionA;
+CQuaternionCalc::Quaternion QuarternionB;
+CQuaternionCalc::Quaternion QuarternionR;
 
 double ConstantT = 0;
 
@@ -809,23 +804,23 @@ BOOL CALLBACK QuaternionDlgProc(HWND _hwnd,
 		
 			//Calculation inputs.
 		case IDC_BUTTON1: // A+B
-
+			QuarternionR = QuarternionA + QuarternionB;
 			break;
 
 		case IDC_BUTTON5: // A-B
-
+			QuarternionR = QuarternionA - QuarternionB;
 			break;
 
 		case IDC_BUTTON6: // B-A
-
+			QuarternionR = QuarternionB - QuarternionA;
 			break;
 
 		case IDC_BUTTON2: // AB
-
+			QuarternionR = QuarternionA * QuarternionB;
 			break;
 
 		case IDC_BUTTON7: // BA
-
+			QuarternionR = QuarternionB * QuarternionA;
 			break;
 
 		case IDC_BUTTON8: // A dot B
