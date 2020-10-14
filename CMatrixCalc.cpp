@@ -1,5 +1,6 @@
 #include "CMatrixCalc.h"
 
+//NERYS DID THIS
 void CMatrixCalc::SetIdentity(float(&Matrix)[4][4])
 {
 	for (int i = 0; i < 4; i++)
@@ -11,6 +12,7 @@ void CMatrixCalc::SetIdentity(float(&Matrix)[4][4])
 	}
 }
 
+//NERYS DID THIS
 float CMatrixCalc::GetDeterminant(const float(&Matrix)[4][4])
 {
 	float fTempMat[3][3];
@@ -36,6 +38,7 @@ float CMatrixCalc::GetDeterminant(const float(&Matrix)[4][4])
 	return (fDeterminant[0] - fDeterminant[1] + fDeterminant[2] - fDeterminant[3]);
 }
 
+//NERYS DID THIS
 float CMatrixCalc::GetDeterminant3X(float _mat[3][3])
 {
 	return (((_mat[1][1] * _mat[2][2]) - (_mat[2][1] * _mat[1][2])) * _mat[0][0]) - (((_mat[0][1] * _mat[2][2]) - (_mat[2][1] * _mat[0][2])) * _mat[1][0]) + (((_mat[0][1] * _mat[1][2]) - (_mat[1][1] * _mat[0][2])) * _mat[2][0]);
@@ -60,6 +63,7 @@ void CMatrixCalc::Transpose(float(&Matrix)[4][4])
 	}
 }
 
+//NERYS DID THIS
 void CMatrixCalc::Inverse(float(&Matrix)[4][4])
 {
 	float fTempMat[3][3];
@@ -109,6 +113,7 @@ void CMatrixCalc::Inverse(float(&Matrix)[4][4])
 	}
 }
 
+//NERYS DID THIS
 void CMatrixCalc::Multiply(float(&Matrix)[4][4], float scalar)
 {
 	for (int i = 0; i < 4; i++)
