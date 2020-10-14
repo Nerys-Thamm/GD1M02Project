@@ -828,11 +828,11 @@ BOOL CALLBACK QuaternionDlgProc(HWND _hwnd,
 			break;
 
 		case IDC_BUTTON3: // A*
-
+			QuarternionR = QuarternionA.Conjugate();
 			break;
 
 		case IDC_BUTTON9: // B*
-
+			QuarternionR = QuarternionB.Conjugate();
 			break;
 
 		case IDC_BUTTON10: // |A|
@@ -852,11 +852,11 @@ BOOL CALLBACK QuaternionDlgProc(HWND _hwnd,
 			break;
 
 		case IDC_BUTTON14: // TA
-
+			QuarternionR = QuarternionA * ConstantT;
 			break;
 
 		case IDC_BUTTON15: // TB
-
+			QuarternionR = QuarternionB * ConstantT;
 			break;
 
 		default:

@@ -28,6 +28,16 @@ public:
 			Quaternion q(this->w - other.w, this->i - other.i, this->j - other.j, this->k - other.k);
 			return q;
 		};
+		Quaternion operator*(const double& T)
+		{
+			Quaternion q(this->w *= T, this->i *= T, this->j *= T, this->k *= T);
+			return q;
+		};
+		Quaternion Conjugate()
+		{
+			Quaternion q(this->w, this->i*-1, this->j*-1, this->k*-1);
+			return q;
+		};
 		
 		
 	};
