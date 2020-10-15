@@ -30,7 +30,7 @@ public:
 		};
 		Quaternion operator*(const double& T)
 		{
-			Quaternion q(this->w *= T, this->i *= T, this->j *= T, this->k *= T);
+			Quaternion q(this->w * T, this->i * T, this->j * T, this->k * T);
 			return q;
 		};
 		Quaternion Conjugate()
@@ -44,6 +44,7 @@ public:
 
 	
 
+private:
 };
 	
 
