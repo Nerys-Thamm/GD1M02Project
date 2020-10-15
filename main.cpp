@@ -705,11 +705,8 @@ BOOL CALLBACK QuaternionDlgProc(HWND _hwnd,
 			break;
 
 		case IDC_BUTTON2: // AB 
-			// sorry for implementing it like this but my brain be mushy rn, im sure you can move the logic to the calculator and do it in the fancy way taht you ususally do.
-			QuarternionR.i = ((QuarternionA.i * QuarternionB.w) + (QuarternionA.j * QuarternionB.k) - (QuarternionA.k * QuarternionB.j) + (QuarternionA.w * QuarternionB.i));
-			QuarternionR.j = ((-QuarternionA.i * QuarternionB.k) + (QuarternionA.j * QuarternionB.w) + (QuarternionA.k * QuarternionB.i) + (QuarternionA.w * QuarternionB.j));
-			QuarternionR.k = ((QuarternionA.i * QuarternionB.j) - (QuarternionA.j * QuarternionB.i) + (QuarternionA.k * QuarternionA.w) + (QuarternionA.w * QuarternionB.k));
-			QuarternionR.w = ((-QuarternionA.i * QuarternionB.i) - (QuarternionA.j * QuarternionB.j) - (QuarternionA.k * QuarternionB.k) + (QuarternionA.w * QuarternionB.w));
+			// Multiply :)
+			QuarternionR = QuarternionA * QuarternionB;
 
 			//display QuaternionR
 			DisplayQauternionR(_hwnd);
@@ -717,7 +714,7 @@ BOOL CALLBACK QuaternionDlgProc(HWND _hwnd,
 
 		case IDC_BUTTON7: // BA
 			
-			//i diddnt implement this because im sure the way you will implement it will cover it hehe :^).
+			QuarternionR = QuarternionB * QuarternionA;
 
 			//display QuaternionR
 			DisplayQauternionR(_hwnd);
