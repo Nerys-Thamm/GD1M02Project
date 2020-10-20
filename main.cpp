@@ -145,6 +145,41 @@ void DisplayMagnitude(HWND _hwnd)
 	WriteToEditBox(_hwnd, IDC_EDIT13, MagResult);
 }
 
+//Gaussian Eliminator
+float GaussianMatrix[3][4];
+
+//multiply function
+float MultiplyRowConstant;
+int MultiplyRow;
+
+//swap function
+int SwapRowA;
+int SwapRowB;
+float tempGaussianMatrix[4];
+
+//add function
+float AddRowConstant;
+int AddRowA;
+int AddRowB;
+
+void DisplayGaussianMatrix(HWND _hwnd)
+{// displays full matrix
+	WriteToEditBox(_hwnd, IDC_EDIT1, GaussianMatrix[0][0]);
+	WriteToEditBox(_hwnd, IDC_EDIT4, GaussianMatrix[0][1]);
+	WriteToEditBox(_hwnd, IDC_EDIT2, GaussianMatrix[0][2]);
+	WriteToEditBox(_hwnd, IDC_EDIT3, GaussianMatrix[0][3]);
+
+	WriteToEditBox(_hwnd, IDC_EDIT5, GaussianMatrix[1][0]);
+	WriteToEditBox(_hwnd, IDC_EDIT8, GaussianMatrix[1][1]);
+	WriteToEditBox(_hwnd, IDC_EDIT6, GaussianMatrix[1][2]);
+	WriteToEditBox(_hwnd, IDC_EDIT7, GaussianMatrix[1][3]);
+
+	WriteToEditBox(_hwnd, IDC_EDIT9, GaussianMatrix[2][0]);
+	WriteToEditBox(_hwnd, IDC_EDIT12, GaussianMatrix[2][1]);
+	WriteToEditBox(_hwnd, IDC_EDIT10, GaussianMatrix[2][2]);
+	WriteToEditBox(_hwnd, IDC_EDIT11, GaussianMatrix[2][3]);
+	}
+
 void GameLoop()
 {
 	//One frame of game logic occurs here...
@@ -610,6 +645,113 @@ BOOL CALLBACK GaussianDlgProc(HWND _hwnd,
 	{
 		switch (LOWORD(_wparam))
 		{
+			//Gaussian Array input
+			//row 1
+		case IDC_EDIT1:
+			GaussianMatrix[0][0] = ReadFromEditBox(_hwnd, IDC_EDIT1);
+			break;
+
+		case IDC_EDIT4:
+			GaussianMatrix[0][1] = ReadFromEditBox(_hwnd, IDC_EDIT4);
+			break;
+
+		case IDC_EDIT2:
+			GaussianMatrix[0][2] = ReadFromEditBox(_hwnd, IDC_EDIT2);
+			break;
+
+		case IDC_EDIT3:
+			GaussianMatrix[0][3] = ReadFromEditBox(_hwnd, IDC_EDIT3);
+			break;
+			//row 2
+		case IDC_EDIT5:
+			GaussianMatrix[1][0] = ReadFromEditBox(_hwnd, IDC_EDIT5);
+			break;
+
+		case IDC_EDIT8:
+			GaussianMatrix[1][1] = ReadFromEditBox(_hwnd, IDC_EDIT8);
+			break;
+
+		case IDC_EDIT6:
+			GaussianMatrix[1][2] = ReadFromEditBox(_hwnd, IDC_EDIT6);
+			break;
+
+		case IDC_EDIT7:
+			GaussianMatrix[1][3] = ReadFromEditBox(_hwnd, IDC_EDIT7);
+			break;
+			//row 3
+		case IDC_EDIT9:
+			GaussianMatrix[2][0] = ReadFromEditBox(_hwnd, IDC_EDIT9);
+			break;
+
+		case IDC_EDIT12:
+			GaussianMatrix[2][1] = ReadFromEditBox(_hwnd, IDC_EDIT12);
+			break;
+
+		case IDC_EDIT10:
+			GaussianMatrix[2][2] = ReadFromEditBox(_hwnd, IDC_EDIT10);
+			break;
+
+		case IDC_EDIT11:
+			GaussianMatrix[2][3] = ReadFromEditBox(_hwnd, IDC_EDIT11);
+			break;
+
+			//Multiply Row
+		case IDC_EDIT13:
+			MultiplyRow = ReadFromEditBox(_hwnd, IDC_EDIT13);
+			break;
+
+		case IDC_EDIT14:
+			MultiplyRowConstant = ReadFromEditBox(_hwnd, IDC_EDIT14);
+			break;
+
+		case IDC_BUTTON1: 
+			for (int i = 0; i < 4; i++)
+			{
+				GaussianMatrix[MultiplyRow - 1][i] *= MultiplyRowConstant;
+			}
+			DisplayGaussianMatrix(_hwnd);
+			break;
+
+			//Swap function
+		case IDC_EDIT16:
+			SwapRowA = ReadFromEditBox(_hwnd, IDC_EDIT16);
+			break;
+
+		case IDC_EDIT17:
+			SwapRowB = ReadFromEditBox(_hwnd, IDC_EDIT17);
+			break;
+
+		case IDC_BUTTON2:
+			for (int i = 0; i < 4; i++)
+			{
+				tempGaussianMatrix[i] = GaussianMatrix[SwapRowA-1][i];
+				GaussianMatrix[SwapRowA - 1][i] = GaussianMatrix[SwapRowB - 1][i];
+				GaussianMatrix[SwapRowB - 1][i] = tempGaussianMatrix[i];
+			}
+			DisplayGaussianMatrix(_hwnd);
+			break;
+
+			//add function
+		case IDC_EDIT19:
+			AddRowConstant = ReadFromEditBox(_hwnd, IDC_EDIT19);
+			break;
+
+		case IDC_EDIT20:
+			AddRowA = ReadFromEditBox(_hwnd, IDC_EDIT20);
+			break;
+
+		case IDC_EDIT22:
+			AddRowB = ReadFromEditBox(_hwnd, IDC_EDIT22);
+			break;
+
+		case IDC_BUTTON3:
+			for (int i = 0; i < 4; i++)
+			{
+				GaussianMatrix[AddRowA - 1][i] *= AddRowConstant;
+				GaussianMatrix[AddRowA - 1][i] += GaussianMatrix[AddRowB - 1][i];
+			}
+			DisplayGaussianMatrix(_hwnd);
+			break;
 
 		default:
 			break;
