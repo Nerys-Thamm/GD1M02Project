@@ -643,6 +643,9 @@ BOOL CALLBACK GaussianDlgProc(HWND _hwnd,
 	{
 	case WM_COMMAND:
 	{
+		int currentnonzeroindex = -1;
+		bool validRowEchelon = true;
+		bool validReducedRowEchelon = true;
 		switch (LOWORD(_wparam))
 		{
 			//Gaussian Array input
@@ -710,6 +713,38 @@ BOOL CALLBACK GaussianDlgProc(HWND _hwnd,
 				GaussianMatrix[MultiplyRow - 1][i] *= MultiplyRowConstant;
 			}
 			DisplayGaussianMatrix(_hwnd);
+			
+			for (int i = 0; i < 3; i++)
+			{
+				for (int j = 0; j < 4; j++)
+				{
+					if (GaussianMatrix[i][j] != 0)
+					{
+						if (j <= currentnonzeroindex)
+						{
+							validRowEchelon = false;
+						}
+						if (GaussianMatrix[i][j] != 1)
+						{
+							validReducedRowEchelon = false;
+						}
+						currentnonzeroindex = j;
+						break;
+					}
+				}
+			}
+			if (validReducedRowEchelon && validRowEchelon)
+			{
+				MessageBox(_hwnd, ToWideString("This is Reduced Row Echelon").c_str(), L"Is it Row Echelon?", MB_OK);
+			}
+			else if (validRowEchelon)
+			{
+				MessageBox(_hwnd, ToWideString("This is Row Echelon").c_str(), L"Is it Row Echelon?", MB_OK);
+			}
+			else
+			{
+				MessageBox(_hwnd, ToWideString("No").c_str(), L"Is it Row Echelon?", MB_OK);
+			}
 			break;
 
 			//Swap function
@@ -729,6 +764,38 @@ BOOL CALLBACK GaussianDlgProc(HWND _hwnd,
 				GaussianMatrix[SwapRowB - 1][i] = tempGaussianMatrix[i];
 			}
 			DisplayGaussianMatrix(_hwnd);
+			
+			for (int i = 0; i < 3; i++)
+			{
+				for (int j = 0; j < 4; j++)
+				{
+					if (GaussianMatrix[i][j] != 0)
+					{
+						if (j <= currentnonzeroindex)
+						{
+							validRowEchelon = false;
+						}
+						if (GaussianMatrix[i][j] != 1)
+						{
+							validReducedRowEchelon = false;
+						}
+						currentnonzeroindex = j;
+						break;
+					}
+				}
+			}
+			if (validReducedRowEchelon && validRowEchelon)
+			{
+				MessageBox(_hwnd, ToWideString("This is Reduced Row Echelon").c_str(), L"Is it Row Echelon?", MB_OK);
+			}
+			else if (validRowEchelon)
+			{
+				MessageBox(_hwnd, ToWideString("This is Row Echelon").c_str(), L"Is it Row Echelon?", MB_OK);
+			}
+			else
+			{
+				MessageBox(_hwnd, ToWideString("No").c_str(), L"Is it Row Echelon?", MB_OK);
+			}
 			break;
 
 			//add function
@@ -751,6 +818,38 @@ BOOL CALLBACK GaussianDlgProc(HWND _hwnd,
 				GaussianMatrix[AddRowA - 1][i] += GaussianMatrix[AddRowB - 1][i];
 			}
 			DisplayGaussianMatrix(_hwnd);
+			
+			for (int i = 0; i < 3; i++)
+			{
+				for (int j = 0; j < 4; j++)
+				{
+					if (GaussianMatrix[i][j] != 0)
+					{
+						if (j <= currentnonzeroindex)
+						{
+							validRowEchelon = false;
+						}
+						if (GaussianMatrix[i][j] != 1)
+						{
+							validReducedRowEchelon = false;
+						}
+						currentnonzeroindex = j;
+						break;
+					}
+				}
+			}
+			if (validReducedRowEchelon && validRowEchelon)
+			{
+				MessageBox(_hwnd, ToWideString("This is Reduced Row Echelon").c_str(), L"Is it Row Echelon?", MB_OK);
+			}
+			else if (validRowEchelon)
+			{
+				MessageBox(_hwnd, ToWideString("This is Row Echelon").c_str(), L"Is it Row Echelon?", MB_OK);
+			}
+			else
+			{
+				MessageBox(_hwnd, ToWideString("No").c_str(), L"Is it Row Echelon?", MB_OK);
+			}
 			break;
 
 		default:
