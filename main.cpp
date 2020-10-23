@@ -714,22 +714,22 @@ BOOL CALLBACK GaussianDlgProc(HWND _hwnd,
 			}
 			DisplayGaussianMatrix(_hwnd);
 			
-			for (int i = 0; i < 3; i++)
+			for (int i = 0; i < 3; i++) //for each row
 			{
-				for (int j = 0; j < 4; j++)
+				for (int j = 0; j < 4; j++) //for each number in that row
 				{
-					if (GaussianMatrix[i][j] != 0)
+					if (GaussianMatrix[i][j] != 0) //is it nonzero?
 					{
-						if (j <= currentnonzeroindex)
+						if (j <= currentnonzeroindex) //Is its index smaller than or equal to the current highest index?
 						{
-							validRowEchelon = false;
+							validRowEchelon = false; //if so then it doesnt fufill the criteria for Row Echelon
 						}
-						if (GaussianMatrix[i][j] != 1)
+						if (GaussianMatrix[i][j] != 1) //Is the nonzero number not 1?
 						{
-							validReducedRowEchelon = false;
+							validReducedRowEchelon = false; //If so it doesnt fit the criteria for reduced row echelon
 						}
-						currentnonzeroindex = j;
-						break;
+						currentnonzeroindex = j; //Set the current highest nonzero index to be this index
+						break; //skip to the next row
 					}
 				}
 			}
@@ -765,22 +765,22 @@ BOOL CALLBACK GaussianDlgProc(HWND _hwnd,
 			}
 			DisplayGaussianMatrix(_hwnd);
 			
-			for (int i = 0; i < 3; i++)
+			for (int i = 0; i < 3; i++) //for each row
 			{
-				for (int j = 0; j < 4; j++)
+				for (int j = 0; j < 4; j++) //for each number in that row
 				{
-					if (GaussianMatrix[i][j] != 0)
+					if (GaussianMatrix[i][j] != 0) //is it nonzero?
 					{
-						if (j <= currentnonzeroindex)
+						if (j <= currentnonzeroindex) //Is its index smaller than or equal to the current highest index?
 						{
-							validRowEchelon = false;
+							validRowEchelon = false; //if so then it doesnt fufill the criteria for Row Echelon
 						}
-						if (GaussianMatrix[i][j] != 1)
+						if (GaussianMatrix[i][j] != 1) //Is the nonzero number not 1?
 						{
-							validReducedRowEchelon = false;
+							validReducedRowEchelon = false; //If so it doesnt fit the criteria for reduced row echelon
 						}
-						currentnonzeroindex = j;
-						break;
+						currentnonzeroindex = j; //Set the current highest nonzero index to be this index
+						break; //skip to the next row
 					}
 				}
 			}
@@ -819,22 +819,22 @@ BOOL CALLBACK GaussianDlgProc(HWND _hwnd,
 			}
 			DisplayGaussianMatrix(_hwnd);
 			
-			for (int i = 0; i < 3; i++)
+			for (int i = 0; i < 3; i++) //for each row
 			{
-				for (int j = 0; j < 4; j++)
+				for (int j = 0; j < 4; j++) //for each number in that row
 				{
-					if (GaussianMatrix[i][j] != 0)
+					if (GaussianMatrix[i][j] != 0) //is it nonzero?
 					{
-						if (j <= currentnonzeroindex)
+						if (j <= currentnonzeroindex) //Is its index smaller than or equal to the current highest index?
 						{
-							validRowEchelon = false;
+							validRowEchelon = false; //if so then it doesnt fufill the criteria for Row Echelon
 						}
-						if (GaussianMatrix[i][j] != 1)
+						if (GaussianMatrix[i][j] != 1) //Is the nonzero number not 1?
 						{
-							validReducedRowEchelon = false;
+							validReducedRowEchelon = false; //If so it doesnt fit the criteria for reduced row echelon
 						}
-						currentnonzeroindex = j;
-						break;
+						currentnonzeroindex = j; //Set the current highest nonzero index to be this index
+						break; //skip to the next row
 					}
 				}
 			}
