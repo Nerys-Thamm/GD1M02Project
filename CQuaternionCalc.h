@@ -4,7 +4,7 @@
 class CQuaternionCalc
 {
 public:
-	struct Quaternion
+	struct Quaternion // [Nerys]
 	{
 		Quaternion(double w, double i, double j, double k) //Constructor
 			: w(w), i(i), j(j), k(k) {}
@@ -19,21 +19,21 @@ public:
 		double k;
 
 
-		//QUATERNION + QUATERNION
+		//QUATERNION + QUATERNION [Nerys]
 		Quaternion operator+(const Quaternion& other) //Overloading addition operator
 		{
 			Quaternion q(this->w + other.w, this->i + other.i, this->j + other.j, this->k + other.k); //Add all components respectively
 			return q;
 		};
 
-		//QUATERNION - QUATERNION
+		//QUATERNION - QUATERNION [Nerys]
 		Quaternion operator-(const Quaternion& other) //Overloading subtraction operator
 		{
 			Quaternion q(this->w - other.w, this->i - other.i, this->j - other.j, this->k - other.k); //Subtract all components respectively
 			return q;
 		};
 
-		//QUATERNION * QUATERNION
+		//QUATERNION * QUATERNION [Nerys]
 		Quaternion operator*(const Quaternion& other) //Overloading Multiplication operator
 		{
 			Quaternion q(((-this->i * other.i) - (this->j * other.j) - (this->k * other.k) + (this->w * other.w)),
@@ -43,14 +43,14 @@ public:
 			return q;
 		};
 
-		//QUATERNION * DOUBLE
+		//QUATERNION * DOUBLE [Nerys]
 		Quaternion operator*(const double& T) //Overloading Multiplication operator
 		{
 			Quaternion q(this->w * T, this->i * T, this->j * T, this->k * T); //Multiply everything by a number
 			return q;
 		};
 
-		//CONJUGATE OF QUATERNION
+		//CONJUGATE OF QUATERNION [Nerys]
 		Quaternion Conjugate()
 		{
 			Quaternion q(this->w, this->i*-1, this->j*-1, this->k*-1); //Invert that imaginary component! :D
