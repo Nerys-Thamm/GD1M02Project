@@ -1,4 +1,5 @@
 #pragma once
+#include <math.h>
 //Quaternion  calculator class by Nerys :D  && Dunstan :D
 //Overloads operators when working with wacky 4D stuff
 class CQuaternionCalc
@@ -57,6 +58,14 @@ public:
 			return q;
 		};
 		
+		void Normalise()
+		{
+			double norm = sqrt(w * w + i * i + j * j + k * k);
+			i /= norm;
+			j /= norm;
+			k /= norm;
+			w /= norm;
+		}
 		
 	};
 
