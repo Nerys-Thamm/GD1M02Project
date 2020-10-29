@@ -23,6 +23,7 @@
 #include "resource.h"
 #include "CMatrixCalc.h"
 #include "CQuaternionCalc.h"
+#include "CSlerpCalc.h"
 
 #define WINDOW_CLASS_NAME L"WINCLASS1"
 
@@ -179,6 +180,14 @@ void DisplayGaussianMatrix(HWND _hwnd)
 	WriteToEditBox(_hwnd, IDC_EDIT10, GaussianMatrix[2][2]);
 	WriteToEditBox(_hwnd, IDC_EDIT11, GaussianMatrix[2][3]);
 	}
+
+
+//SLERP calculator
+CQuaternionCalc::Quaternion a(0,0,0,0);
+CQuaternionCalc::Quaternion b(0,0,0,0);
+CQuaternionCalc::Quaternion res(0,0,0,0);
+float InducedMatrix[4][4];
+
 
 void GameLoop()
 {
@@ -1107,7 +1116,87 @@ BOOL CALLBACK SLERPDlgProc(HWND _hwnd,
 	{
 		switch (LOWORD(_wparam))
 		{
+		case IDC_BUTTON1:
+			a = CQuaternionCalc::Quaternion(ReadFromEditBox(_hwnd, IDC_EDIT4), ReadFromEditBox(_hwnd, IDC_EDIT1), ReadFromEditBox(_hwnd, IDC_EDIT2), ReadFromEditBox(_hwnd, IDC_EDIT3));
+			b = CQuaternionCalc::Quaternion(ReadFromEditBox(_hwnd, IDC_EDIT8), ReadFromEditBox(_hwnd, IDC_EDIT5), ReadFromEditBox(_hwnd, IDC_EDIT6), ReadFromEditBox(_hwnd, IDC_EDIT7));
+			CSlerpCalc::Slerp(a,b, ReadFromEditBox(_hwnd, IDC_EDIT9), res);
+			WriteToEditBox(_hwnd, IDC_EDIT10, res.i);
+			WriteToEditBox(_hwnd, IDC_EDIT11, res.j);
+			WriteToEditBox(_hwnd, IDC_EDIT12, res.k);
+			WriteToEditBox(_hwnd, IDC_EDIT13, res.w);
+			break;
+		case IDC_BUTTON2:
+			a = CQuaternionCalc::Quaternion(ReadFromEditBox(_hwnd, IDC_EDIT4), ReadFromEditBox(_hwnd, IDC_EDIT1), ReadFromEditBox(_hwnd, IDC_EDIT2), ReadFromEditBox(_hwnd, IDC_EDIT3));
+			CSlerpCalc::ToMatrix(a, InducedMatrix);
 
+			WriteToEditBox(_hwnd, IDC_EDIT34, InducedMatrix[0][0]);
+			WriteToEditBox(_hwnd, IDC_EDIT35, InducedMatrix[0][1]);
+			WriteToEditBox(_hwnd, IDC_EDIT36, InducedMatrix[0][2]);
+			WriteToEditBox(_hwnd, IDC_EDIT37, InducedMatrix[0][3]);
+
+			WriteToEditBox(_hwnd, IDC_EDIT38, InducedMatrix[1][0]);
+			WriteToEditBox(_hwnd, IDC_EDIT39, InducedMatrix[1][1]);
+			WriteToEditBox(_hwnd, IDC_EDIT40, InducedMatrix[1][2]);
+			WriteToEditBox(_hwnd, IDC_EDIT41, InducedMatrix[1][3]);
+
+			WriteToEditBox(_hwnd, IDC_EDIT42, InducedMatrix[2][0]);
+			WriteToEditBox(_hwnd, IDC_EDIT43, InducedMatrix[2][1]);
+			WriteToEditBox(_hwnd, IDC_EDIT44, InducedMatrix[2][2]);
+			WriteToEditBox(_hwnd, IDC_EDIT45, InducedMatrix[2][3]);
+
+			WriteToEditBox(_hwnd, IDC_EDIT46, InducedMatrix[3][0]);
+			WriteToEditBox(_hwnd, IDC_EDIT47, InducedMatrix[3][1]);
+			WriteToEditBox(_hwnd, IDC_EDIT48, InducedMatrix[3][2]);
+			WriteToEditBox(_hwnd, IDC_EDIT49, InducedMatrix[3][3]);
+			break;
+		case IDC_BUTTON3:
+			b = CQuaternionCalc::Quaternion(ReadFromEditBox(_hwnd, IDC_EDIT8), ReadFromEditBox(_hwnd, IDC_EDIT5), ReadFromEditBox(_hwnd, IDC_EDIT6), ReadFromEditBox(_hwnd, IDC_EDIT7));
+			CSlerpCalc::ToMatrix(b, InducedMatrix);
+			WriteToEditBox(_hwnd, IDC_EDIT34, InducedMatrix[0][0]);
+			WriteToEditBox(_hwnd, IDC_EDIT35, InducedMatrix[0][1]);
+			WriteToEditBox(_hwnd, IDC_EDIT36, InducedMatrix[0][2]);
+			WriteToEditBox(_hwnd, IDC_EDIT37, InducedMatrix[0][3]);
+
+			WriteToEditBox(_hwnd, IDC_EDIT38, InducedMatrix[1][0]);
+			WriteToEditBox(_hwnd, IDC_EDIT39, InducedMatrix[1][1]);
+			WriteToEditBox(_hwnd, IDC_EDIT40, InducedMatrix[1][2]);
+			WriteToEditBox(_hwnd, IDC_EDIT41, InducedMatrix[1][3]);
+
+			WriteToEditBox(_hwnd, IDC_EDIT42, InducedMatrix[2][0]);
+			WriteToEditBox(_hwnd, IDC_EDIT43, InducedMatrix[2][1]);
+			WriteToEditBox(_hwnd, IDC_EDIT44, InducedMatrix[2][2]);
+			WriteToEditBox(_hwnd, IDC_EDIT45, InducedMatrix[2][3]);
+
+			WriteToEditBox(_hwnd, IDC_EDIT46, InducedMatrix[3][0]);
+			WriteToEditBox(_hwnd, IDC_EDIT47, InducedMatrix[3][1]);
+			WriteToEditBox(_hwnd, IDC_EDIT48, InducedMatrix[3][2]);
+			WriteToEditBox(_hwnd, IDC_EDIT49, InducedMatrix[3][3]);
+			break;
+		case IDC_BUTTON4:
+			a = CQuaternionCalc::Quaternion(ReadFromEditBox(_hwnd, IDC_EDIT4), ReadFromEditBox(_hwnd, IDC_EDIT1), ReadFromEditBox(_hwnd, IDC_EDIT2), ReadFromEditBox(_hwnd, IDC_EDIT3));
+			b = CQuaternionCalc::Quaternion(ReadFromEditBox(_hwnd, IDC_EDIT8), ReadFromEditBox(_hwnd, IDC_EDIT5), ReadFromEditBox(_hwnd, IDC_EDIT6), ReadFromEditBox(_hwnd, IDC_EDIT7));
+			CSlerpCalc::Slerp(a, b, ReadFromEditBox(_hwnd, IDC_EDIT9), res);
+			CSlerpCalc::ToMatrix(res, InducedMatrix);
+			WriteToEditBox(_hwnd, IDC_EDIT34, InducedMatrix[0][0]);
+			WriteToEditBox(_hwnd, IDC_EDIT35, InducedMatrix[0][1]);
+			WriteToEditBox(_hwnd, IDC_EDIT36, InducedMatrix[0][2]);
+			WriteToEditBox(_hwnd, IDC_EDIT37, InducedMatrix[0][3]);
+
+			WriteToEditBox(_hwnd, IDC_EDIT38, InducedMatrix[1][0]);
+			WriteToEditBox(_hwnd, IDC_EDIT39, InducedMatrix[1][1]);
+			WriteToEditBox(_hwnd, IDC_EDIT40, InducedMatrix[1][2]);
+			WriteToEditBox(_hwnd, IDC_EDIT41, InducedMatrix[1][3]);
+
+			WriteToEditBox(_hwnd, IDC_EDIT42, InducedMatrix[2][0]);
+			WriteToEditBox(_hwnd, IDC_EDIT43, InducedMatrix[2][1]);
+			WriteToEditBox(_hwnd, IDC_EDIT44, InducedMatrix[2][2]);
+			WriteToEditBox(_hwnd, IDC_EDIT45, InducedMatrix[2][3]);
+
+			WriteToEditBox(_hwnd, IDC_EDIT46, InducedMatrix[3][0]);
+			WriteToEditBox(_hwnd, IDC_EDIT47, InducedMatrix[3][1]);
+			WriteToEditBox(_hwnd, IDC_EDIT48, InducedMatrix[3][2]);
+			WriteToEditBox(_hwnd, IDC_EDIT49, InducedMatrix[3][3]);
+			break;
 		default:
 			break;
 		}
