@@ -188,6 +188,75 @@ CQuaternionCalc::Quaternion b(0,0,0,0);
 CQuaternionCalc::Quaternion res(0,0,0,0);
 float InducedMatrix[4][4];
 
+//Transformation matrix
+float ResMatRow[4][4] = { {1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1} };
+
+float xScale = 0;
+float yScale = 0;
+float zScale = 0;
+
+float xTrans = 0;
+float yTrans = 0;
+float zTrans = 0;
+
+float OperationM[4][4] = { {1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1} };
+float TempMat[4][4];
+
+float RotAngle = 0;
+float Distance = 0;
+
+int RotXYZ;
+int ProXYZ;
+
+//display functions
+void DisplayBothMatrix(HWND _hwnd)
+{
+	//row major
+	//row 1
+	WriteToEditBox(_hwnd, IDC_EDIT47, ResMatRow[0][0]);
+	WriteToEditBox(_hwnd, IDC_EDIT48, ResMatRow[0][1]);
+	WriteToEditBox(_hwnd, IDC_EDIT49, ResMatRow[0][2]);
+	WriteToEditBox(_hwnd, IDC_EDIT50, ResMatRow[0][3]);
+	//row 2
+	WriteToEditBox(_hwnd, IDC_EDIT51, ResMatRow[1][0]);
+	WriteToEditBox(_hwnd, IDC_EDIT52, ResMatRow[1][1]);
+	WriteToEditBox(_hwnd, IDC_EDIT53, ResMatRow[1][2]);
+	WriteToEditBox(_hwnd, IDC_EDIT54, ResMatRow[1][3]);
+	//row 3
+	WriteToEditBox(_hwnd, IDC_EDIT55, ResMatRow[2][0]);
+	WriteToEditBox(_hwnd, IDC_EDIT56, ResMatRow[2][1]);
+	WriteToEditBox(_hwnd, IDC_EDIT57, ResMatRow[2][2]);
+	WriteToEditBox(_hwnd, IDC_EDIT58, ResMatRow[2][3]);
+	//row 4
+	WriteToEditBox(_hwnd, IDC_EDIT59, ResMatRow[3][0]);
+	WriteToEditBox(_hwnd, IDC_EDIT60, ResMatRow[3][1]);
+	WriteToEditBox(_hwnd, IDC_EDIT61, ResMatRow[3][2]);
+	WriteToEditBox(_hwnd, IDC_EDIT62, ResMatRow[3][3]);
+
+	//collum major
+	//row 1
+	WriteToEditBox(_hwnd, IDC_EDIT16, ResMatRow[0][0]);
+	WriteToEditBox(_hwnd, IDC_EDIT18, ResMatRow[1][0]);
+	WriteToEditBox(_hwnd, IDC_EDIT19, ResMatRow[2][0]);
+	WriteToEditBox(_hwnd, IDC_EDIT20, ResMatRow[3][0]);
+	//row 2
+	WriteToEditBox(_hwnd, IDC_EDIT21, ResMatRow[0][1]);
+	WriteToEditBox(_hwnd, IDC_EDIT22, ResMatRow[1][1]);
+	WriteToEditBox(_hwnd, IDC_EDIT23, ResMatRow[2][1]);
+	WriteToEditBox(_hwnd, IDC_EDIT8, ResMatRow[3][1]);
+	//row 3
+	WriteToEditBox(_hwnd, IDC_EDIT9, ResMatRow[0][2]);
+	WriteToEditBox(_hwnd, IDC_EDIT10, ResMatRow[1][2]);
+	WriteToEditBox(_hwnd, IDC_EDIT11, ResMatRow[2][2]);
+	WriteToEditBox(_hwnd, IDC_EDIT12, ResMatRow[3][2]);
+	//row 4
+	WriteToEditBox(_hwnd, IDC_EDIT24, ResMatRow[0][3]);
+	WriteToEditBox(_hwnd, IDC_EDIT25, ResMatRow[1][3]);
+	WriteToEditBox(_hwnd, IDC_EDIT26, ResMatRow[2][3]);
+	WriteToEditBox(_hwnd, IDC_EDIT27, ResMatRow[3][3]);
+}
+
+
 
 void GameLoop()
 {
@@ -619,12 +688,180 @@ BOOL CALLBACK TransformationDlgProc(HWND _hwnd,
 	case WM_COMMAND:
 	{
 		switch (LOWORD(_wparam))
-		{
+		{//Nerys did this
+			//setting XYZ scale 
+		case IDC_EDIT1:
+			xScale = ReadFromEditBox(_hwnd, IDC_EDIT1);
+			DisplayBothMatrix(_hwnd);
+			break;
+		case IDC_EDIT2:
+			yScale = ReadFromEditBox(_hwnd, IDC_EDIT2);
+			break;
+		case IDC_EDIT3:
+			zScale = ReadFromEditBox(_hwnd, IDC_EDIT3);
+			break;
+
+			//setting scale of matrix
+		case IDC_BUTTON4:
+			CMatrixCalc::SetIdentity(OperationM);
+
+			OperationM[0][0] = xScale;
+			OperationM[1][1] = yScale;
+			OperationM[2][2] = zScale;
+
+			CMatrixCalc::Multiply(ResMatRow, OperationM, TempMat);
+
+			for (int i = 0; i < 4; i++)
+			{
+				for (int j = 0; j < 4; j++)
+				{
+					ResMatRow[i][j] = TempMat[i][j];
+				}
+			}
+
+			DisplayBothMatrix(_hwnd);
+			break;
+			//dunstan did this
+			//setting XYZ Translation
+		case IDC_EDIT4:
+			xTrans = ReadFromEditBox(_hwnd, IDC_EDIT4);
+			break;
+		case IDC_EDIT5:
+			yTrans = ReadFromEditBox(_hwnd, IDC_EDIT5);
+			break;
+		case IDC_EDIT6:
+			zTrans = ReadFromEditBox(_hwnd, IDC_EDIT6);
+			break;
+
+			//setting Translation of matrix
+		case IDC_BUTTON15:
+			CMatrixCalc::SetIdentity(OperationM);
+
+			OperationM[0][3] = xTrans;
+			OperationM[1][3] = yTrans;
+			OperationM[2][3] = zTrans;
+
+			CMatrixCalc::Multiply(ResMatRow, OperationM, TempMat);
+
+			for (int i = 0; i < 4; i++)
+			{
+				for (int j = 0; j < 4; j++)
+				{
+					ResMatRow[i][j] = TempMat[i][j];
+				}
+			}
+
+			DisplayBothMatrix(_hwnd);
+			break;
+			//nerys did this
+			//Rotation Matrix
+		case IDC_EDIT13:
+			RotAngle = ReadFromEditBox(_hwnd, IDC_EDIT13);
+			break;
+
+		case IDC_RADIO1:
+			RotXYZ = 1;
+			break;
+
+		case IDC_RADIO2:
+			RotXYZ = 2;
+			break;
+
+		case IDC_RADIO3:
+			RotXYZ = 3;
+			break;
+
+		case IDC_BUTTON16:
+			CMatrixCalc::SetIdentity(OperationM);
+			switch (RotXYZ)
+			{
+			case 1:
+				OperationM[1][1] = cos(RotAngle);
+				OperationM[1][2] = sin(RotAngle);
+				OperationM[2][1] = -sin(RotAngle);
+				OperationM[2][2] = cos(RotAngle);
+				break;
+			case 2:
+				OperationM[0][0] = cos(RotAngle);
+				OperationM[0][2] = -sin(RotAngle);
+				OperationM[2][0] = sin(RotAngle);
+				OperationM[2][2] = cos(RotAngle);
+				break;
+			case 3:
+				OperationM[0][0] = cos(RotAngle);
+				OperationM[0][1] = -sin(RotAngle);
+				OperationM[1][0] = sin(RotAngle);
+				OperationM[1][1] = cos(RotAngle);
+				break;
+			default:
+				break;
+			}
+
+			CMatrixCalc::Multiply(ResMatRow, OperationM, TempMat);
+
+			for (int i = 0; i < 4; i++)
+			{
+				for (int j = 0; j < 4; j++)
+				{
+					ResMatRow[i][j] = TempMat[i][j];
+				}
+			}
+
+			DisplayBothMatrix(_hwnd);
+			break;
+			//dunstan did this
+			//Projection Matrix
+		case IDC_EDIT15:
+			Distance = ReadFromEditBox(_hwnd, IDC_EDIT15);
+			break;
+
+		case IDC_RADIO4:
+			ProXYZ = 1;
+			break;
+
+		case IDC_RADIO5:
+			ProXYZ = 2;
+			break;
+
+		case IDC_RADIO6:
+			ProXYZ = 3;
+			break;
+
+		case IDC_BUTTON17:
+			CMatrixCalc::SetIdentity(OperationM);
+			switch (ProXYZ)
+			{
+			case 1:
+				OperationM[3][0] = (1/Distance);
+				break;
+			case 2:
+				OperationM[3][1] = (1 / Distance);
+				break;
+			case 3:
+				OperationM[3][2] = (1 / Distance);
+				break;
+			default:
+				break;
+			}
+
+			CMatrixCalc::Multiply(ResMatRow, OperationM, TempMat);
+
+			for (int i = 0; i < 4; i++)
+			{
+				for (int j = 0; j < 4; j++)
+				{
+					ResMatRow[i][j] = TempMat[i][j];
+				}
+			}
+
+			DisplayBothMatrix(_hwnd);
+			break;
+
 
 		default:
 			break;
 		}
-		
+
 	return TRUE;
 	break;
 
